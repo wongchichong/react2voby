@@ -1,0 +1,5 @@
+.pnpm
+build*
+dist*
+voby/
+node_modules

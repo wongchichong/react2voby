@@ -1,0 +1,34 @@
+{
+    "name": "react2voby",
+    "version": "1.0.0",
+    "repository": "https://github.com/wongchichong/react2voby",
+    "description": "",
+    "main": "./dist/react2voby.js",
+    "bin": "./dist/react2voby.js",
+    "scripts": {
+        "release": "git add . && git commit -m \"Bump version\" git push && pnpm version patch",
+        "preinstall": "npx only-allow pnpm",
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "test": "node --watch ./dist/react2voby.js --config test.tsconfig.json"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.4.0",
+        "fs-extra": "^11.1.1",
+        "glob": "^9.3.5",
+        "json5": "^2.2.3",
+        "pnpm": "^8.3.1",
+        "process": "^0.11.10",
+        "tsquery": "workspace:../tsquery",
+        "typescript": "^5.0.4",
+        "yargs": "^17.7.2"
+    },
+    "devDependencies": {
+        "@types/node": "^18.16.3",
+        "@types/yargs": "^17.0.24",
+        "vite": "^4.3.3",
+        "vite-plugin-clean": "^1.0.0"
+    }
+}

@@ -1,0 +1,8 @@
+demo/**
+src/**
+tsconfig.json
+tsconfig.*.json
+*tsbuildinfo
+vite.config.ts
+test.vite.config.ts
+index.html
