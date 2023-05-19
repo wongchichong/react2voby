@@ -1,8 +1,7 @@
-demo/**
-src/**
+.pnmm
+test/**
+voby/**
 tsconfig.json
 tsconfig.*.json
+*.ts
 *tsbuildinfo
-vite.config.ts
-test.vite.config.ts
-index.html
