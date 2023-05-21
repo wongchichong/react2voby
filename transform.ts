@@ -123,9 +123,10 @@ const fnExp = (ce: CallExpression) => {
     const ag = `(${ce.arguments?.map(a => a.getText()).join(', ')})`
     return `${ta}${ag}`
 }
-const fnDep = (ce: CallExpression, keepGeneric = true) => {
+const fnDep = (ce: CallExpression, keepGeneric = true, removeCall = false) => {
     const ta = keepGeneric ? (ce.typeArguments?.length > 0 ? `<${ce.typeArguments.map(a => a.getText()).join(', ')}>` : '') : ''
-    const ag = ce.arguments.length === 1 ? `${ce.arguments[0].getText()}` : `${ce.arguments.slice(0, ce.arguments.length - 1).map(a => a.getText()).join(', ')}`
+    const ag = ce.arguments.length === 1 ? (removeCall ? `${ce.arguments[0].getText()}` : `(${ce.arguments[0].getText()})`) : `(${ce.arguments.slice(0, ce.arguments.length - 1).map(a => a.getText()).join(', ')})`
+    //const ag = ce.arguments.length === 1 ? `${ce.arguments[0].getText()}` : `${ce.arguments.slice(0, ce.arguments.length - 1).map(a => a.getText()).join(', ')}`
     return `${ta}${ag}`
 }
 
