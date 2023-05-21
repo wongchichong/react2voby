@@ -1,5 +1,4 @@
-import type {
-    CSSProperties,
+CSSProperties,
     FocusEvent,
     HTMLAttributes,
     KeyboardEvent,

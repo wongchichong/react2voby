@@ -123,9 +123,9 @@ const fnExp = (ce: CallExpression) => {
     const ag = `(${ce.arguments?.map(a => a.getText()).join(', ')})`
     return `${ta}${ag}`
 }
-const fnDep = (ce: CallExpression) => {
-    const ta = ce.typeArguments?.length > 0 ? `<${ce.typeArguments.map(a => a.getText()).join(', ')}>` : ''
-    const ag = ce.arguments.length === 1 ? `(${ce.arguments[0].getText()})` : `(${ce.arguments.slice(0, ce.arguments.length - 1).map(a => a.getText()).join(', ')})`
+const fnDep = (ce: CallExpression, keepGeneric = true) => {
+    const ta = keepGeneric ? (ce.typeArguments?.length > 0 ? `<${ce.typeArguments.map(a => a.getText()).join(', ')}>` : '') : ''
+    const ag = ce.arguments.length === 1 ? `${ce.arguments[0].getText()}` : `${ce.arguments.slice(0, ce.arguments.length - 1).map(a => a.getText()).join(', ')}`
     return `${ta}${ag}`
 }
 
@@ -372,14 +372,21 @@ const fixUseRef = (nc: string, scriptKind: ScriptKind) => {
 const fixUseCallback = (nc: string, scriptKind: ScriptKind) => {
     nc = tq.replace(nc, "Block", n => tq.replace(n.getText(), "VariableDeclaration CallExpression[expression.name=useCallback]", n => {
         // console.log('')
-        return `$${fnDep(n as CallExpression)}`
+        return `${fnDep(n as CallExpression, false)}`
     }, { scriptKind, visitAllChildren }), { scriptKind, visitAllChildren })
     // nc = tq.replace(nc, "Block", n => tq.replace(n.getText(), "VariableDeclaration CallExpression Identifier[name=useCallback]", n => '$', { scriptKind }), { scriptKind })
 
     return nc
 }
 
-const fixUse = (nc: string, hook = 'useEffect', scriptKind: ScriptKind): string =>
-    tq.replace(nc, `CallExpression[expression.name="${hook}"]`, ((n: CallExpression) => {
+const fixUse = (nc: string, hook = 'useEffect', scriptKind: ScriptKind): string => {
+    nc = tq.replace(nc, `CallExpression[expression.name="${hook}"]`, ((n: CallExpression) => {
         return `${hook}${fnDep(n)}`
     }) as any, { scriptKind })
+
+    nc = tq.replace(nc, `CallExpression:has(PropertyAccessExpression Identifier[name="${hook}"])`, ((n: CallExpression) => {
+        return `${hook}${fnDep(n)}`
+    }) as any, { scriptKind })
+
+    return nc
+}

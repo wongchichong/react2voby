@@ -130,34 +130,34 @@ export default function MyApp() {
     const hack = $(0)
     const {} = $(0)
     const arr = $<{}>(null)
-    const onClick = $<() => void>(() => { })
+    const onClick = () => { }
     const value = $(0)
 
     function handleClick() {
         count(count() + 1)
     }
 
-    useEffect(() => {
+    useEffect() => {
         (() => { })()
 
         console.log(arr())
         arr(123)
-    })
+    }
 
-    React.useEffect(() => {
+    useEffect() => {
         (() => { })()
 
         console.log(count())
-    }, [count()])
+    }
 
-    React.useEffect(() => {
+    useEffect() => {
         (() => { })()
         console.log(a()
-    }, ...arr())
+    }
 
     const obj = { count(), SS: s() }
 
-    const handleKeyDown = $((event: KeyboardEvent<HTMLSpanElement>) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement>) => {
             onKeyDown?.(event)
 
             if (tryToSubmitRelatedForm(event)) {
@@ -200,7 +200,7 @@ export default function MyApp() {
                 refs[nextIndex].current.focus()
                 onChange(getRadioItemValue(items[nextIndex]))
             }
-        })
+        }
 
 
     // comment
@@ -295,30 +295,24 @@ export function useTempValue<T>(
 ): ReturnValue<T> {
   const value = $(defaultValue);
   const timeout = $<number>();
-  const resetValue = $(() => {
+  const resetValue = () => {
     window.clearTimeout(timeout());
     value(defaultValue);
-  });
+  };
 
-  const setValue = $((nextValue: T) => {
+  const setValue = (nextValue: T) => {
       value(nextValue);
       window.clearTimeout(timeout());
       timeout(window.setTimeout(resetValue, resetTime));
-    });
+    };
 
   return [value, setValue, resetValue];
 }
 
 ```
 
-In Voby, most callback is uncessary, can be removed manually.
+Known issues:
+Renamed imports will be not processed.
 
-For above example, setValue become
-
-``` ts
-const setValue = (nextValue: T) => {
-      value(nextValue);
-      window.clearTimeout(timeout());
-      timeout(window.setTimeout(resetValue, resetTime));
-    }
-```
+If [https://github.com/phenomnomnominal/tsquery](https://github.com/phenomnomnominal/tsquery) pull not done, please use this:
+[https://github.com/wongchichong/tsquery](https://github.com/wongchichong/tsquery)
