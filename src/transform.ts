@@ -1,6 +1,7 @@
 import ts, { CallExpression, convertToObject, ElementAccessExpression, ObjectLiteralExpression, PropertyAccessExpression, PropertyAssignment, ScriptKind, ShorthandPropertyAssignment, SyntaxKind } from 'typescript'
 import { tsquery as tq } from "tsquery"
-import 'colors'
+import chalk, { red } from 'chalk'
+
 
 //todo: string template
 const isInJsx = (node: ts.Node) => {
@@ -245,7 +246,7 @@ const fixUseState = (nc: string, scriptKind: ScriptKind) => tq.replace(nc, "Bloc
                 if (p.name) {
                     const pk = p.name.getText()
                     if (dic.has(pk)) {
-                        console.log(pk.red)
+                        console.log(red(pk))
                         del.add(pk)
                     }
                     dic.add(pk)

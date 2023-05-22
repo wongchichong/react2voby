@@ -8,27 +8,36 @@
     "scripts": {
         "release": "git add . && git commit -m \"Bump version\" git push && pnpm version patch",
         "preinstall": "npx only-allow pnpm",
-        "build": "tsc",
-        "watch": "tsc --watch",
-        "test": "node --watch ./dist/react2voby.js --config test.tsconfig.json"
+        "web": "vite --force --mode dev --host",
+        "build": "tsc --project tsconfig.build.json",
+        "watch": "tsc --watch --project tsconfig.build.json",
+        "test": "node --watch ./dist/react2voby.js --config tsconfig.test.json"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "colors": "^1.4.0",
+        "@types/react": "^18.2.6",
+        "@uiw/react-textarea-code-editor": "^2.1.1",
+        "chalk": "^4.0.0",
         "fs-extra": "^11.1.1",
         "glob": "^9.3.5",
         "json5": "^2.2.3",
         "pnpm": "^8.3.1",
         "process": "^0.11.10",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "tsquery": "workspace:../tsquery",
         "typescript": "^5.0.4",
+        "use-voby": "workspace:../use-voby",
+        "voby": "^0.52.2",
         "yargs": "^17.7.2"
     },
     "devDependencies": {
         "@types/node": "^18.16.3",
         "@types/yargs": "^17.0.24",
         "vite": "^4.3.3",
-        "vite-plugin-clean": "^1.0.0"
+        "vite-plugin-clean": "^1.0.0",
+        "vite-plugin-dts": "^2.3.0",
+        "vite-plugin-svgr": "^3.2.0"
     }
 }

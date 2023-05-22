@@ -6,7 +6,7 @@ import fs from 'fs'
 import { isPromise } from 'util/types'
 import JSON from 'json5'
 import { transform } from './transform'
-import 'colors'
+import chalk, { red, green, yellow } from 'chalk'
 
 const fsp = fs.promises
 
@@ -15,7 +15,7 @@ type TsConfig = { compilerOptions: ts.CompilerOptions, exclude: string[] }
 const pwd = process.cwd()
 
 console.log()
-console.log("Transforming React source to Voby source.".underline.bold)
+console.log(chalk.underline.bold("Transforming React source to Voby source."))
 
 
 const options = yargs(process.argv.slice(2))
@@ -35,24 +35,24 @@ else {
     const config = options.config ?? "tsconfig.json"
     const cpath = join(pwd, config)
 
-    console.log(`Processing ${cpath}`.green.bold)
+    console.log(chalk.green.bold(`Processing ${cpath}`))
 
     if (!fs.existsSync(cpath))
-        console.log(`${cpath} not found.`.red)
+        console.log(red(`${cpath} not found.`))
     else {
-        console.log("config: ".green + cpath.yellow)
+        console.log(green("config: ") + yellow(cpath))
         const cc: TsConfig = JSON.parse(fs.readFileSync(cpath).toString())
 
         const r = join(pwd, cc.compilerOptions.rootDir ?? "./")
         const o = join(pwd, "./voby")
-        console.log("rootDir: ".green + r.yellow)
-        console.log("outDir: ".green + o.yellow)
+        console.log(green("rootDir: ") + yellow(r))
+        console.log(green("outDir: ") + yellow(o))
 
         // console.log(process.argv[2])
         const files = globSync(['**/*.ts', '**/*.tsx'], { cwd: r, ignore: cc.exclude })
 
         console.log()
-        console.log("Files to process:".underline.bold)
+        console.log(chalk.underline.bold("Files to process:"))
         console.log(files)
         console.log()
 
@@ -71,8 +71,7 @@ else {
 
             fs.writeFileSync(of, ns)
 
-
-            console.log('Done: '.green + of + " ✅")
+            console.log(green('Done: ') + of + " ✅")
         })
     }
 }
