@@ -11,7 +11,7 @@ export default defineConfig({
     build: {
         minify: false,
         outDir: 'cli',
-        target: 'es6',
+        target: 'node14',
         rollupOptions: {
             input: "./src/react2voby.ts",
             external: ['typescript', 'voby', 'test', 'web', './index.html'],

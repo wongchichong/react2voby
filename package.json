@@ -1,6 +1,6 @@
 {
     "name": "react2voby",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "repository": "https://github.com/wongchichong/react2voby",
     "description": "",
     "main": "./dist/transform.cjs.js",
@@ -18,7 +18,7 @@
         "build:lib": "vite build --config vite.config.lib.ts",
         "watch": "tsc --watch --project tsconfig.build.json",
         "test": "node --watch ./dist/react2voby.js --config tsconfig.test.json",
-        "clean": "rimraf dist cli public",
+        "clean": "rimraf dist cli public build",
         "build:all": "pnpm clean && pnpm build && pnpm build:cli && pnpm build:lib"
     },
     "author": "",

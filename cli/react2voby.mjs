@@ -1,24 +1,3 @@
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e2) {
-        reject(e2);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e2) {
-        reject(e2);
-      }
-    };
-    var step = (x2) => x2.done ? resolve(x2.value) : Promise.resolve(x2.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
-var _a, _b;
 import ts, { createSourceFile, ScriptTarget, SyntaxKind, ScriptKind, transform as transform$1, visitNode, visitEachChild, createCompilerHost, createProgram, readConfigFile, sys, parseJsonConfigFileContent } from "typescript";
 import { sync } from "glob";
 import * as path from "path";
@@ -1371,9 +1350,8 @@ function validateParse(selector) {
   return selector;
 }
 function query(ast, selector, options2 = {}) {
-  var _a2;
   if (typeof ast === "string") {
-    ast = createAST(ast, void 0, (_a2 = options2.scriptKind) != null ? _a2 : ScriptKind.Unknown);
+    ast = createAST(ast, void 0, options2.scriptKind ?? ScriptKind.Unknown);
   }
   return match(ast, parse(selector), options2);
 }
@@ -1477,7 +1455,7 @@ const isInJsx = (node) => {
 const trim = (s2) => s2.substring(1, s2.length - 2);
 const visitAllChildren = true;
 const transform = (source, scriptKind) => {
-  const sourceCode = source != null ? source : `
+  const sourceCode = source ?? `
   export default function TestCode() {
     const [count, setCount] = useState(0);
     const [s, setS] = React.useState(0);
@@ -1532,14 +1510,14 @@ const fixImport = (nc, scriptKind) => tsquery.replace(nc, "ImportDeclaration", (
   return nc2;
 }, { scriptKind });
 const fnExp = (ce) => {
-  var _a2, _b2;
-  const ta = ((_a2 = ce.typeArguments) == null ? void 0 : _a2.length) > 0 ? `<${ce.typeArguments.map((a2) => a2.getText()).join(", ")}>` : "";
-  const ag = `(${(_b2 = ce.arguments) == null ? void 0 : _b2.map((a2) => a2.getText()).join(", ")})`;
+  var _a, _b;
+  const ta = ((_a = ce.typeArguments) == null ? void 0 : _a.length) > 0 ? `<${ce.typeArguments.map((a2) => a2.getText()).join(", ")}>` : "";
+  const ag = `(${(_b = ce.arguments) == null ? void 0 : _b.map((a2) => a2.getText()).join(", ")})`;
   return `${ta}${ag}`;
 };
 const fnDep = (ce, keepGeneric = true, removeParenthesis = false) => {
-  var _a2;
-  const ta = keepGeneric ? ((_a2 = ce.typeArguments) == null ? void 0 : _a2.length) > 0 ? `<${ce.typeArguments.map((a2) => a2.getText()).join(", ")}>` : "" : "";
+  var _a;
+  const ta = keepGeneric ? ((_a = ce.typeArguments) == null ? void 0 : _a.length) > 0 ? `<${ce.typeArguments.map((a2) => a2.getText()).join(", ")}>` : "" : "";
   const ag = ce.arguments.length === 1 ? removeParenthesis ? `${ce.arguments[0].getText()}` : `(${ce.arguments[0].getText()})` : `(${ce.arguments.slice(0, ce.arguments.length - 1).map((a2) => a2.getText()).join(", ")})`;
   return `${ta}${ag}`;
 };
@@ -1547,9 +1525,9 @@ const fixUseState = (nc, scriptKind) => tsquery.replace(nc, "Block", (n2) => {
   const ns = tsquery.query(n2.getText(), "VariableDeclaration CallExpression[expression.name=useState]", { scriptKind });
   const variable = {};
   const keyVal = (fc) => {
-    var _a2, _b2, _c, _d, _e;
-    let key = (_b2 = (_a2 = fc.getChildAt(1)) == null ? void 0 : _a2.getChildAt(0)) == null ? void 0 : _b2.getText();
-    let val = (_e = (_d = (_c = fc.getChildAt(1)) == null ? void 0 : _c.getChildAt(2)) == null ? void 0 : _d.getText()) != null ? _e : "";
+    var _a, _b, _c, _d;
+    let key = (_b = (_a = fc.getChildAt(1)) == null ? void 0 : _a.getChildAt(0)) == null ? void 0 : _b.getText();
+    let val = ((_d = (_c = fc.getChildAt(1)) == null ? void 0 : _c.getChildAt(2)) == null ? void 0 : _d.getText()) ?? "";
     key = key === "" ? val : key;
     return { key, val };
   };
@@ -1678,7 +1656,7 @@ const options = yargs(process.argv.slice(2)).option("config", {
 if (isPromise(options)) {
   console.error("Unknown promise");
 } else {
-  const config = (_a = options.config) != null ? _a : "tsconfig.json";
+  const config = options.config ?? "tsconfig.json";
   const cpath = join(pwd, config);
   console.log(chalk.green.bold(`Processing ${cpath}`));
   if (!fs__default.existsSync(cpath))
@@ -1686,7 +1664,7 @@ if (isPromise(options)) {
   else {
     console.log(green("config: ") + yellow(cpath));
     const cc = JSON.parse(fs__default.readFileSync(cpath).toString());
-    const r2 = join(pwd, (_b = cc.compilerOptions.rootDir) != null ? _b : "./");
+    const r2 = join(pwd, cc.compilerOptions.rootDir ?? "./");
     const o2 = join(pwd, "./voby");
     console.log(green("rootDir: ") + yellow(r2));
     console.log(green("outDir: ") + yellow(o2));
@@ -1695,8 +1673,8 @@ if (isPromise(options)) {
     console.log(chalk.underline.bold("Files to process:"));
     console.log(files);
     console.log();
-    files.forEach((f2) => __async(void 0, null, function* () {
-      const src = yield fsp.readFile(join(r2, f2));
+    files.forEach(async (f2) => {
+      const src = await fsp.readFile(join(r2, f2));
       const sk = f2.toLowerCase().endsWith(".tsx") ? ScriptKind.TSX : ScriptKind.TS;
       const ns = transform(src.toString(), sk);
       const of = join(o2, f2);
@@ -1705,7 +1683,7 @@ if (isPromise(options)) {
         fs__default.mkdirSync(p2, { recursive: true });
       fs__default.writeFileSync(of, ns);
       console.log(green("Done: ") + of + " ✅");
-    }));
+    });
   }
 }
 //# sourceMappingURL=react2voby.mjs.map
