@@ -1,4 +1,5 @@
 .pnmm
+.firebase
 test/**
 voby/**
 tsconfig.json
@@ -6,5 +7,4 @@ tsconfig.*.json
 *.ts
 *tsbuildinfo
 firebase-debug.log
-.firebase
 public
