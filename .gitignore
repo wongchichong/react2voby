@@ -3,3 +3,4 @@ build*
 dist*
 voby/
 node_modules
+firebase-debug.log

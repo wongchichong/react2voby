@@ -9,7 +9,8 @@
         "release": "git add . && git commit -m \"Bump version\" git push && pnpm version patch",
         "preinstall": "npx only-allow pnpm",
         "web": "vite --force --mode dev --host",
-        "build": "tsc --project tsconfig.build.json",
+        "build": "vite build",
+        "build:lib": "tsc --project tsconfig.build.json",
         "watch": "tsc --watch --project tsconfig.build.json",
         "test": "node --watch ./dist/react2voby.js --config tsconfig.test.json"
     },
