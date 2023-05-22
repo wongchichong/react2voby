@@ -11,10 +11,12 @@ export default defineConfig({
     build: {
         minify: false,
         outDir: 'cli',
+        target: 'es6',
         rollupOptions: {
-            external: ['voby', 'test', 'web', './index.html'],
+            input: "./src/react2voby.ts",
+            external: ['typescript', 'voby', 'test', 'web', './index.html'],
         },
-        ssr: "./src/react2voby.ts",
+        ssr: true,
         sourcemap: true,
     },
     resolve: {
