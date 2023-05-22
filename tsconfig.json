@@ -96,6 +96,7 @@
         "test/",
         "voby/",
         "./*.ts",
-        "vite.config.ts"
+        "vite.config.ts",
+        "vite.config.*.ts"
     ]
 }

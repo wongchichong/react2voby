@@ -95,6 +95,8 @@
     "exclude": [
         "**/dist/**",
         "**/voby/**",
-        "**/sub/**"
+        "**/sub/**",
+        "vite.config.ts",
+        "vite.config.*.ts"
     ]
 }

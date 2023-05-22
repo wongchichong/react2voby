@@ -8,3 +8,5 @@ tsconfig.*.json
 *tsbuildinfo
 firebase-debug.log
 public
+cli/index.*
+cli/assets
