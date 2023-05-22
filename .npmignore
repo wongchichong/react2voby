@@ -1,5 +1,5 @@
 .pnmm
-.firebase
+.firebase/**
 test/**
 voby/**
 tsconfig.json
