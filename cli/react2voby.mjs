@@ -1,4 +1,5 @@
-import ts, { createSourceFile, ScriptTarget, SyntaxKind, ScriptKind, transform as transform$1, visitNode, visitEachChild, createCompilerHost, createProgram, readConfigFile, sys, parseJsonConfigFileContent } from "typescript";
+import * as ts from "typescript";
+import { createSourceFile, ScriptTarget, SyntaxKind, ScriptKind, transform as transform$1, visitNode, visitEachChild, createCompilerHost, createProgram, readConfigFile, sys, parseJsonConfigFileContent } from "typescript";
 import { sync } from "glob";
 import * as path from "path";
 import { join, dirname } from "path";

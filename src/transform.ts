@@ -1,4 +1,5 @@
-import ts, { CallExpression, convertToObject, ElementAccessExpression, ObjectLiteralExpression, PropertyAccessExpression, PropertyAssignment, ScriptKind, ShorthandPropertyAssignment, SyntaxKind } from 'typescript'
+import * as ts from 'typescript'
+import type { CallExpression, convertToObject, ElementAccessExpression, ObjectLiteralExpression, PropertyAccessExpression, PropertyAssignment, ScriptKind, ShorthandPropertyAssignment, SyntaxKind } from 'typescript'
 import { tsquery as tq } from "tsquery"
 import chalk, { red } from 'chalk'
 
