@@ -1,6 +1,6 @@
 {
     "name": "react2voby",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "repository": "https://github.com/wongchichong/react2voby",
     "description": "",
     "main": "./dist/transform.cjs.js",
