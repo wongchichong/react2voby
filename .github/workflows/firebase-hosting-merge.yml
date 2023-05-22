@@ -45,8 +45,8 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
-        
+        run: pnpm install --no-frozen-lockfile
+
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
