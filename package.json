@@ -7,7 +7,7 @@
     "module": "./dist/transform.es.js",
     "browser": "./dist/transform.umd.js",
     "types": "./dist/types/transform.d.ts",
-    "bin": "./cli/react2voby.mjs",
+    "bin": "./cli/react2voby.js",
     "scripts": {
         "release": "git add . && git commit -m \"Bump version\" git push && pnpm version patch",
         "preinstall": "npx only-allow pnpm",
